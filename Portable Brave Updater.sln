@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portable Brave Updater", "Portable Brave Updater.csproj", "{35518A07-1388-4DDA-8518-D93319C317F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35518A07-1388-4DDA-8518-D93319C317F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35518A07-1388-4DDA-8518-D93319C317F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35518A07-1388-4DDA-8518-D93319C317F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35518A07-1388-4DDA-8518-D93319C317F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F12E23E-164A-4A17-9FDA-36E8496627D6}
+	EndGlobalSection
+EndGlobal
