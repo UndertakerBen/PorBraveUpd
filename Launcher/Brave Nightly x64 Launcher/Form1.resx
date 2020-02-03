@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9pt</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 100</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 25</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 48</value>
+  </data>
+  <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 17</value>
+  </data>
+  <data name="radioButton1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="radioButton1.Text" xml:space="preserve">
+    <value>Ein Profil für alle Versionen verwenden</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Name" xml:space="preserve">
+    <value>radioButton1</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButton2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 71</value>
+  </data>
+  <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 17</value>
+  </data>
+  <data name="radioButton2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="radioButton2.Text" xml:space="preserve">
+    <value>Für jede Version ein eigenes Profil verwenden</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.Name" xml:space="preserve">
+    <value>radioButton2</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButton2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radioButton3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButton3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 25</value>
+  </data>
+  <data name="radioButton3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 17</value>
+  </data>
+  <data name="radioButton3.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="radioButton3.Text" xml:space="preserve">
+    <value>Das Standard Profil von Brave verwenden</value>
+  </data>
+  <data name="&gt;&gt;radioButton3.Name" xml:space="preserve">
+    <value>radioButton3</value>
+  </data>
+  <data name="&gt;&gt;radioButton3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButton3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radioButton3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>339, 141</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        c6WOjI6W5OTkif7+/or///+Y9PT0p5qZmraFZXrFpaKk1PT09OP7+/vysrKy+oxte/GNiYvj6urq1P//
+        /8X///+28fHxp6CgoJh9VWiK1CByifsEdZbDQn2llG1/HwAAAAAAAAAAAAAAAAAAAACog5w1ykGc6vkG
+        p9usPYfMiIWHvd/f367+/v6f////kP///4f8/PyPxsbGnoh4g62ck5m86urqy/X19dqmo6XpkXuF9ra2
+        tvj4+Pjs////3f///87///+/7OzssJaVlaGRTm2S8Q11h9soeo2Ya4BDAAAAAAAAAAAAAAAAAAAAAJt9
+        kWvTLpv69win86hikOS9vb3V/Pz8xv7+/rf39/eo5eXlmc/Pz4u4treIrnydlZyEk6Td3d2z7Ozswp+V
+        mtGwdJDgubO27szMzPng4OD09PT05v39/df+/v7I0dHRuZZ0hKrsFHeb5hh3jI1fdFoAAAAAAAAAAAAA
+        AAAAAAAAj2uDLr06kej4B6f2wVCb+bazte3t7e3e6urqz8XFxcC4tLextp6uorFznJOkSoaIfWl2jNnZ
+        2Zvr6+uqkYeMuZ9McsiwaYnWtZel5bews/TAv8D54ODg7/T09OC8vLzRtm2OwvQMdrPTJXSkflRnQQAA
+        AAAAAAAAAAAAAAAAAAAAAAAAp0+KsvUJpt/mHqPusIOh+cfHx/XV1dXnjYyN2HBnbslnUmC6Y0xbq2dd
+        Y5yZmZmO7Ozsh/b29pKsrKyha2RnsGNNV75mTVnNaV1i3Hp4eevBwcH40NDQ96+Yo+nZM3/a+wR1y7I7
+        crl9UWUQAAAAAAAAAAAAAAAAAAAAAAAAAACzWZV78wylx/wDqNbSPKDlsJ6q9MrKyvrJycnwtbW14bGx
+        sdK/v7/D3NzctPX19aX+/v6W////iff394rg4OCYwcHBpq+vr7WwsLDEwcHB08zMzOKwqa3xyFWK+vgI
+        dvL7BHXjuUZ7vQAAAAAAAAAAAAAAAAAAAAAAAAAAooaYCrdemZr4B6ev/wCovvYKps3DV5/cta+z69ra
+        2vjf39/41dXV6tHR0dvX19fM5+fnvfb29q74+Pif7Ozskdra2ofT09OP1dXVnd7e3qzf39+7uLa3yr1x
+        lNnvE3fo/wB19v0CdfjCQXzshmx4PAAAAAAAAAAAAAAAAAAAAACOfYkOklR+e+IYnpf+Aaim/wCote4U
+        pMS/bqTTvrS54sCzufHBqLT6waCv88Cps+TAubzVxMTExsTExLfAvL6pwKy1msGerovBo7GIwLC4lL2z
+        uKO6hJ2y5CJ7wf4BddD/AHXf7g917plBafJrV2E8AAAAAAAAAAAAAAAAAAAAAAAAAAByUWcUkkR4ed8a
+        nY75Bqed+AenrOgol7vYT47K3UiM2ec3iOjsL4b25DiH+dNWj+3IdZvex3mdz89ckcHhN4Sy7SOAo+sl
+        f5TgNYOI2EGGjOMmfZr3CHWp+QZ1uOkTdcefOWjSb0RYRgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AABsUGIWdUZjcYpAa4iOQ2iUpkVynOMyg7L+IYfB/x6F0P8chN//GoPu/hqC+fobgfb6GoDn/RV/2f8R
+        fsr/D327/w18rP8Le53uGHqOsDVug487YZCNOmCgeD5Zn2JCUTsAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAYDpQB2M6UQR1S2ETl05vjegug6n/H4W4/xyEx/8ag9b/GYPl/xeC8/8V
+        gfr/E3/w/xF+4v8PfdP/DXzE8hZ6taM8a6NxRFkqdDlTAV83SQoAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4VmccoEtyi+srg6D5IYSv+h+Cvvod
+        gc36G4Hc+hmA6/oXf/j5Fn74+RR96/IYe9yuOm/NcUdbSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABzVGMnfUhhh4pB
+        Y5eKQWKmikBitYo/YsSKP2HTij5h4ok+YfCIPV/6fj9c82hFVXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA/4AAAP+AAAD/gAAA/4AAAP8AAAD+AAAA/AAAAPwAAAD4AAAf+AAAH/gA
+        AB/4AAAP8AAAD/AAAA/wAAAP8AAAB+AAAAfgAAAH4AAAB8AAAAPAAAADwAAAA8AAAAPgAAAD4AAAB8AA
+        AAPAAAAD4AAAB/AAAA/8AAA//4AB///AA/8=
+</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Brave Nightly x64 Launcher</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Form1</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>
