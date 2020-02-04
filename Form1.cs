@@ -65,22 +65,14 @@ namespace Brave_Updater
             {
                 button10.Text = "Quit";
                 button9.Text = "Install all";
-                label10.Text = "Install all x86 and or x64";
+                label9.Text = "Install all x86 and or x64";
                 checkBox4.Text = "Ignore version check";
                 checkBox1.Text = "Create a Folder for each version";
                 checkBox5.Text = "Create a shortcut on the desktop";
                 if (IntPtr.Size != 8)
                 {
-                    label10.Text = "Install all x86";
+                    label9.Text = "Install all x86";
                 }
-            }
-            if (IntPtr.Size != 8)
-            {
-                button5.Visible = false;
-                button6.Visible = false;
-                button7.Visible = false;
-                button8.Visible = false;
-                checkBox2.Visible = false;
             }
             if (IntPtr.Size == 8)
             {
@@ -112,6 +104,11 @@ namespace Brave_Updater
             }
             else if (IntPtr.Size != 8)
             {
+                button5.Visible = false;
+                button6.Visible = false;
+                button7.Visible = false;
+                button8.Visible = false;
+                checkBox2.Visible = false;
                 if (File.Exists(@"Brave Nightly x86\Brave.exe") || File.Exists(@"Brave Dev x86\Brave.exe") || File.Exists(@"Brave Beta x86\Brave.exe") || File.Exists(@"Brave Stable x86\Brave.exe"))
                 {
                     checkBox3.Checked = true;
@@ -120,7 +117,7 @@ namespace Brave_Updater
                 }
                 else if (!checkBox3.Checked)
                 {
-                    checkBox2.Enabled = false;
+                    checkBox1.Enabled = false;
                     button9.Enabled = false;
                     button9.BackColor = Color.FromArgb(244, 244, 244);
 
