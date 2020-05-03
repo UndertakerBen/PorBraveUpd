@@ -38,9 +38,8 @@ namespace Brave_Updater
                 for (int i = 0; i <= 3; i++)
                 {
                     Uri uri = new Uri("https://updates.bravesoftware.com/service/update2");
-                    ServicePoint sp = ServicePointManager.FindServicePoint(uri);
-                    sp.ConnectionLimit = 1;
-                    WebRequest request = WebRequest.Create("https://updates.bravesoftware.com/service/update2");
+                    ServicePointManager.FindServicePoint(uri).ConnectionLimit = 1;
+                    WebRequest request = WebRequest.Create(uri);
                     request.Method = "POST";
                     request.ContentType = "application/x-www-form-urlencoded";
                     byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[i] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[i] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
@@ -167,7 +166,7 @@ namespace Brave_Updater
             }
             foreach (Process proc in Process.GetProcesses())
             {
-                if (proc.ProcessName.Equals("Chrome"))
+                if (proc.ProcessName.Equals("Brave"))
                 {
                     switch (culture1.TwoLetterISOLanguageName)
                     {
@@ -1041,7 +1040,7 @@ namespace Brave_Updater
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
                     var version = reader.ReadToEnd();
-                    FileVersionInfo testm = FileVersionInfo.GetVersionInfo(applicationPath + "\\Bin\\Launcher\\Chrome Launcher.exe");
+                    FileVersionInfo testm = FileVersionInfo.GetVersionInfo(applicationPath + "\\Bin\\Launcher\\Brave Launcher.exe");
                     if (Convert.ToInt32(version.Replace(".", "")) > Convert.ToInt32(testm.FileVersion.Replace(".", "")))
                     {
                         reader.Close();
