@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -34,47 +33,84 @@ namespace Brave_Updater
         public Form1()
         {
             InitializeComponent();
-            for (int i = 0; i <= 3; i++)
+            try
             {
-                WebRequest request = WebRequest.Create("https://updates.bravesoftware.com/service/update2");
-                request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
-                byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[i] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[i] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
-                request.ContentLength = byteArray.Length;
-                Stream dataStream = request.GetRequestStream();
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                WebResponse response = request.GetResponse();
-                using (dataStream = response.GetResponseStream())
+                for (int i = 0; i <= 3; i++)
                 {
-                    StreamReader reader = new StreamReader(dataStream);
-                    string responseFromServer = reader.ReadToEnd();
-                    string[] URL = responseFromServer.Substring(responseFromServer.IndexOf("manifest version=")).Split(new char[] { '"' });
-                    string[] version = URL[1].Split(new char[] { '.' });
-                    newVersion[i] = version[1] + "." + version[2] + "." + version[3];
-                    buildversion[i] = URL[1];
-                    buildversion[i + 4] = URL[1];
-                    dataStream.Close();
+                    Uri uri = new Uri("https://updates.bravesoftware.com/service/update2");
+                    ServicePoint sp = ServicePointManager.FindServicePoint(uri);
+                    sp.ConnectionLimit = 1;
+                    WebRequest request = WebRequest.Create("https://updates.bravesoftware.com/service/update2");
+                    request.Method = "POST";
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[i] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[i] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
+                    request.ContentLength = byteArray.Length;
+                    Stream dataStream = request.GetRequestStream();
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    WebResponse response = request.GetResponse();
+                    using (dataStream = response.GetResponseStream())
+                    {
+                        StreamReader reader = new StreamReader(dataStream);
+                        string responseFromServer = reader.ReadToEnd();
+                        string[] URL = responseFromServer.Substring(responseFromServer.IndexOf("manifest version=")).Split(new char[] { '"' });
+                        string[] version = URL[1].Split(new char[] { '.' });
+                        newVersion[i] = version[1] + "." + version[2] + "." + version[3];
+                        buildversion[i] = URL[1];
+                        buildversion[i + 4] = URL[1];
+                        dataStream.Close();
+                    }
+                }
+                label5.Text = newVersion[0];
+                label6.Text = newVersion[1];
+                label7.Text = newVersion[2];
+                label8.Text = newVersion[3];
+                button9.Enabled = false;
+                checkBox1.Enabled = false;
+                checkBox2.Enabled = false;
+                switch (culture1.TwoLetterISOLanguageName)
+                {
+                    case "ru":
+                        button10.Text = "Выход";
+                        button9.Text = "Установить все";
+                        label9.Text = "Установить все версии x86 и/или x64";
+                        checkBox4.Text = "Игнорировать проверку версии";
+                        checkBox3.Text = "Разные версии в отдельных папках";
+                        checkBox5.Text = "Создать ярлык на рабочем столе";
+                        if (IntPtr.Size != 8)
+                        {
+                            label9.Text = "Установить все версии x86";
+                        }
+                        break;
+                    case "de":
+                        button10.Text = "Beenden";
+                        button9.Text = "Alle Installieren";
+                        label9.Text = "Alle x86 und oder x64 installieren";
+                        checkBox4.Text = "Versionkontrolle ignorieren";
+                        checkBox3.Text = "Für jede Version einen eigenen Ordner";
+                        checkBox5.Text = "Eine Verknüpfung auf dem Desktop erstellen";
+                        if (IntPtr.Size != 8)
+                        {
+                            label9.Text = "Alle x86 installieren";
+                        }
+                        break;
+                    default:
+                        button10.Text = "Quit";
+                        button9.Text = "Install all";
+                        label9.Text = "Install all x86 and or x64";
+                        checkBox4.Text = "Ignore version check";
+                        checkBox3.Text = "Create a Folder for each version";
+                        checkBox5.Text = "Create a shortcut on the desktop";
+                        if (IntPtr.Size != 8)
+                        {
+                            label9.Text = "Install all x86";
+                        }
+                        break;
+
                 }
             }
-            label5.Text = newVersion[0];
-            label6.Text = newVersion[1];
-            label7.Text = newVersion[2];
-            label8.Text = newVersion[3];
-            button9.Enabled = false;
-            checkBox1.Enabled = false;
-            checkBox2.Enabled = false;
-            if (culture1.Name != "de-DE")
+            catch (Exception ex)
             {
-                button10.Text = "Quit";
-                button9.Text = "Install all";
-                label9.Text = "Install all x86 and or x64";
-                checkBox4.Text = "Ignore version check";
-                checkBox1.Text = "Create a Folder for each version";
-                checkBox5.Text = "Create a shortcut on the desktop";
-                if (IntPtr.Size != 8)
-                {
-                    label9.Text = "Install all x86";
-                }
+                MessageBox.Show(ex.Message);
             }
             if (IntPtr.Size == 8)
             {
@@ -129,7 +165,32 @@ namespace Brave_Updater
                     }
                 }
             }
+            foreach (Process proc in Process.GetProcesses())
+            {
+                if (proc.ProcessName.Equals("Chrome"))
+                {
+                    switch (culture1.TwoLetterISOLanguageName)
+                    {
+                        case "ru":
+                            {
+                                MessageBox.Show("Необходимо закрыть Brave перед обновлением.", "Portable Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                        case "de":
+                            {
+                                MessageBox.Show("Bitte schließen Sie den laufenden  Brave-Browser, bevor Sie den Browser aktualisieren.", "Portable Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                        default:
+                            {
+                                MessageBox.Show("Please close the running Brave browser before updating the browser.", "Portable Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                    }
+                }
+            }
             CheckUpdate();
+            CheckLauncher();
         }
         private async void Button1_Click(object sender, EventArgs e)
         {
@@ -301,131 +362,158 @@ namespace Brave_Updater
             progressBox.Controls.Add(progressBarneu);
             Controls.Add(progressBox);
             List<Task> list = new List<Task>();
-            WebRequest request = WebRequest.Create("https://updates.bravesoftware.com/service/update2");
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[a] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[d - 1] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
-            request.ContentLength = byteArray.Length;
-            Stream dataStream = request.GetRequestStream();
-            dataStream.Write(byteArray, 0, byteArray.Length);
-            WebResponse response = request.GetResponse();
-            using (dataStream = response.GetResponseStream())
+            try
             {
-                StreamReader reader = new StreamReader(dataStream);
-                string responseFromServer = reader.ReadToEnd();
-                string[] tempURL2 = responseFromServer.Substring(responseFromServer.LastIndexOf("codebase=")).Split(new char[] { '"' });
-                string[] tempURL4 = responseFromServer.Substring(responseFromServer.IndexOf("name=")).Split(new char[] { '"' });
-                Uri uri = new Uri(tempURL2[1] + tempURL4[1]);
-                ServicePoint sp = ServicePointManager.FindServicePoint(uri);
-                sp.ConnectionLimit = 2;
-                dataStream.Close();
-                using (webClient = new WebClient())
+                WebRequest request = WebRequest.Create("https://updates.bravesoftware.com/service/update2");
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[a] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[d - 1] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
+                request.ContentLength = byteArray.Length;
+                Stream dataStream = request.GetRequestStream();
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                WebResponse response = request.GetResponse();
+                using (dataStream = response.GetResponseStream())
                 {
-                    webClient.DownloadProgressChanged += (o, args) =>
+                    StreamReader reader = new StreamReader(dataStream);
+                    string responseFromServer = reader.ReadToEnd();
+                    string[] tempURL2 = responseFromServer.Substring(responseFromServer.LastIndexOf("codebase=")).Split(new char[] { '"' });
+                    string[] tempURL4 = responseFromServer.Substring(responseFromServer.IndexOf("name=")).Split(new char[] { '"' });
+                    Uri uri = new Uri(tempURL2[1] + tempURL4[1]);
+                    ServicePoint sp = ServicePointManager.FindServicePoint(uri);
+                    sp.ConnectionLimit = 2;
+                    dataStream.Close();
+                    using (webClient = new WebClient())
                     {
-                        Control[] buttons = Controls.Find("button" + d, true);
-                        if (buttons.Length > 0)
+                        webClient.DownloadProgressChanged += (o, args) =>
                         {
-                            Button button = (Button)buttons[0];
-                            button.BackColor = Color.Orange;
-                        }
-                        progressBarneu.Value = args.ProgressPercentage;
-                        downloadLabel.Text = string.Format("{0} MB's / {1} MB's",
-                            (args.BytesReceived / 1024d / 1024d).ToString("0.00"),
-                            (args.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
-                        percLabel.Text = args.ProgressPercentage.ToString() + "%";
-                    };
-                    webClient.DownloadFileCompleted += (o, args) =>
-                    {
-                        if (args.Cancelled == true)
-                        {
-                            MessageBox.Show("Download has been canceled.");
-                        }
-                        else
-                        {
-                            downloadLabel.Text = culture1.Name != "de-DE" ? "Unpacking" : "Entpacken";
-                            string arguments = " x " + "Brave_" + architektur[c] + "_" + buildversion[a] + "_" + ring[a] + ".exe" + " -o" + @"Update\" + entpDir[b] + " -y";
-                            Process process = new Process();
-                            process.StartInfo.FileName = @"Bin\7zr.exe";
-                            process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-                            process.StartInfo.Arguments = arguments;
-                            process.Start();
-                            process.WaitForExit();
-                            process.StartInfo.Arguments = " x " + @"Update\" + entpDir[b] + "\\Chrome.7z -o" + @"Update\" + entpDir[b] + " -y";
-                            process.Start();
-                            process.WaitForExit();
-                            if ((File.Exists(@"Update\" + entpDir[b] + "\\chrome-bin\\Brave.exe")) && (File.Exists(instDir[b] + "\\updates\\Version.log")))
+                            Control[] buttons = Controls.Find("button" + d, true);
+                            if (buttons.Length > 0)
                             {
-                                string[] instVersion = File.ReadAllText(instDir[b] + "\\updates\\Version.log").Split(new char[] { '|' });
-                                FileVersionInfo testm = FileVersionInfo.GetVersionInfo(applicationPath + "\\Update\\" + entpDir[b] + "\\chrome-bin\\Brave.exe");
-                                if (checkBox3.Checked)
-                                {
-                                    if (testm.FileVersion != instVersion[0])
-                                    {
-                                        if (Directory.Exists(instDir[b] + "\\" + instVersion[0]))
-                                        {
-                                            Directory.Delete(instDir[b] + "\\" + instVersion[0], true);
-                                        }
-                                        Thread.Sleep(2000);
-                                        NewMethod4(a, b, c, testm);
-                                    }
-                                    else if ((testm.FileVersion == instVersion[0]) && (checkBox4.Checked))
-                                    {
-                                        if (Directory.Exists(instDir[b] + "\\" + instVersion[0]))
-                                        {
-                                            Directory.Delete(instDir[b] + "\\" + instVersion[0], true);
-                                        }
-                                        Thread.Sleep(2000);
-                                        NewMethod4(a, b, c, testm);
-                                    }
-                                }
-                                else if (!checkBox3.Checked)
-                                {
-                                    if (Directory.Exists(instDir[b] + "\\" + instVersion[0]))
-                                    {
-                                        Directory.Delete(instDir[b] + "\\" + instVersion[0], true);
-                                    }
-                                    Thread.Sleep(2000);
-                                    NewMethod4(a, b, c, testm);
-                                }
+                                Button button = (Button)buttons[0];
+                                button.BackColor = Color.Orange;
+                            }
+                            progressBarneu.Value = args.ProgressPercentage;
+                            downloadLabel.Text = $"{args.BytesReceived / 1024d / 1024d:0.00} MB's / {args.TotalBytesToReceive / 1024d / 1024d:0.00} MB's";
+                            percLabel.Text = $"{args.ProgressPercentage}%";
+                        };
+                        webClient.DownloadFileCompleted += (o, args) =>
+                        {
+                            if (args.Cancelled == true)
+                            {
+                                MessageBox.Show("Download has been canceled.");
                             }
                             else
                             {
-                                if (!Directory.Exists(instDir[b]))
+                                switch (culture1.TwoLetterISOLanguageName)
                                 {
-                                    Directory.CreateDirectory(instDir[b]);
+                                    case "ru":
+                                        downloadLabel.Text = "Распаковка";
+                                        break;
+                                    case "de":
+                                        downloadLabel.Text = "Entpacken";
+                                        break;
+                                    default:
+                                        downloadLabel.Text = "Unpacking";
+                                        break;
                                 }
-                                NewMethod4(a, b, c, FileVersionInfo.GetVersionInfo(applicationPath + "\\Update\\" + entpDir[b] + "\\chrome-bin\\Brave.exe"));
+                                string arguments = " x " + "Brave_" + architektur[c] + "_" + buildversion[a] + "_" + ring[a] + ".exe" + " -o" + @"Update\" + entpDir[b] + " -y";
+                                Process process = new Process();
+                                process.StartInfo.FileName = @"Bin\7zr.exe";
+                                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                                process.StartInfo.Arguments = arguments;
+                                process.Start();
+                                process.WaitForExit();
+                                process.StartInfo.Arguments = " x " + @"Update\" + entpDir[b] + "\\Chrome.7z -o" + @"Update\" + entpDir[b] + " -y";
+                                process.Start();
+                                process.WaitForExit();
+                                if ((File.Exists(@"Update\" + entpDir[b] + "\\chrome-bin\\Brave.exe")) && (File.Exists(instDir[b] + "\\updates\\Version.log")))
+                                {
+                                    string[] instVersion = File.ReadAllText(instDir[b] + "\\updates\\Version.log").Split(new char[] { '|' });
+                                    FileVersionInfo testm = FileVersionInfo.GetVersionInfo(applicationPath + "\\Update\\" + entpDir[b] + "\\chrome-bin\\Brave.exe");
+                                    if (checkBox3.Checked)
+                                    {
+                                        if (testm.FileVersion != instVersion[0])
+                                        {
+                                            if (Directory.Exists(instDir[b] + "\\" + instVersion[0]))
+                                            {
+                                                Directory.Delete(instDir[b] + "\\" + instVersion[0], true);
+                                            }
+                                            Thread.Sleep(2000);
+                                            NewMethod4(a, b, c, testm);
+                                        }
+                                        else if ((testm.FileVersion == instVersion[0]) && (checkBox4.Checked))
+                                        {
+                                            if (Directory.Exists(instDir[b] + "\\" + instVersion[0]))
+                                            {
+                                                Directory.Delete(instDir[b] + "\\" + instVersion[0], true);
+                                            }
+                                            Thread.Sleep(2000);
+                                            NewMethod4(a, b, c, testm);
+                                        }
+                                    }
+                                    else if (!checkBox3.Checked)
+                                    {
+                                        if (Directory.Exists(instDir[b] + "\\" + instVersion[0]))
+                                        {
+                                            Directory.Delete(instDir[b] + "\\" + instVersion[0], true);
+                                        }
+                                        Thread.Sleep(2000);
+                                        NewMethod4(a, b, c, testm);
+                                    }
+                                }
+                                else
+                                {
+                                    if (!Directory.Exists(instDir[b]))
+                                    {
+                                        Directory.CreateDirectory(instDir[b]);
+                                    }
+                                    NewMethod4(a, b, c, FileVersionInfo.GetVersionInfo(applicationPath + "\\Update\\" + entpDir[b] + "\\chrome-bin\\Brave.exe"));
+                                }
                             }
-                    }
-                    if (checkBox5.Checked)
-                    {
-                        if (!File.Exists(deskDir + "\\" + instDir[b] + ".lnk"))
+                            if (checkBox5.Checked)
+                            {
+                                if (!File.Exists(deskDir + "\\" + instDir[b] + ".lnk"))
+                                {
+                                    NewMethod5(a, b);
+                                }
+                            }
+                            else if (File.Exists(deskDir + "\\" + instDir[b] + ".lnk") && (instDir[b] == "Brave"))
+                            {
+                                NewMethod5(a, b);
+                            }
+                            if (!File.Exists(@instDir[b] + " Launcher.exe"))
+                            {
+                                File.Copy(@"Bin\Launcher\" + instDir[b] + " Launcher.exe", @instDir[b] + " Launcher.exe");
+                            }
+                            File.Delete("Brave_" + architektur[c] + "_" + buildversion[a] + "_" + ring[a] + ".exe");
+                            switch (culture1.TwoLetterISOLanguageName)
+                            {
+                                case "ru":
+                                    downloadLabel.Text = "Распакованный";
+                                    break;
+                                case "de":
+                                    downloadLabel.Text = "Entpackt";
+                                    break;
+                                default:
+                                    downloadLabel.Text = "Unpacked";
+                                    break;
+                            }
+                        };
+                        try
                         {
-                            NewMethod5(a, b);
+                            var task = webClient.DownloadFileTaskAsync(uri, "Brave_" + architektur[c] + "_" + buildversion[a] + "_" + ring[a] + ".exe");
+                            list.Add(task);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
                         }
                     }
-                    else if (File.Exists(deskDir + "\\" + instDir[b] + ".lnk") && (instDir[b] == "Brave"))
-                    {
-                        NewMethod5(a, b);
-                    }
-                    if (!File.Exists(@instDir[b] + " Launcher.exe"))
-                    {
-                        File.Copy(@"Bin\Launcher\" + instDir[b] + " Launcher.exe", @instDir[b] + " Launcher.exe");
-                    }
-                    File.Delete("Brave_" + architektur[c] + "_" + buildversion[a] + "_" + ring[a] + ".exe");
-                    downloadLabel.Text = culture1.Name != "de-DE" ? "Unpacked" : "Entpackt";
-                    };
-                    try
-                    {
-                        var task = webClient.DownloadFileTaskAsync(uri, "Brave_" + architektur[c] + "_" + buildversion[a] + "_" + ring[a] + ".exe");
-                        list.Add(task);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             await Task.WhenAll(list);
             await Task.Delay(2000);
@@ -450,13 +538,17 @@ namespace Brave_Updater
                     }
                     else if (buildversion[i] != instVersion[0])
                     {
-                        if (culture1.Name != "de-DE")
+                        switch (culture1.TwoLetterISOLanguageName)
                         {
-                            button9.Text = "Update all";
-                        }
-                        else
-                        {
-                            button9.Text = "Alle Updaten";
+                            case "ru":
+                                button9.Text = "Обновить все";
+                                break;
+                            case "de":
+                                button9.Text = "Alle Updaten";
+                                break;
+                            default:
+                                button9.Text = "Update all";
+                                break;
                         }
                         button9.Enabled = true;
                         button9.BackColor = Color.FromArgb(224, 224, 224);
@@ -561,15 +653,17 @@ namespace Brave_Updater
         }
         public void Message1()
         {
-            if (culture1.Name != "de-DE")
+            switch (culture1.TwoLetterISOLanguageName)
             {
-                MessageBox.Show("The same version is already installed", "Portabel Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            else
-            {
-                MessageBox.Show("Die selbe Version ist bereits installiert", "Portabel Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                case "ru":
+                    MessageBox.Show("Данная версия уже установлена", "Portabel Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                case "de":
+                    MessageBox.Show("Die selbe Version ist bereits installiert", "Portabel Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                default:
+                    MessageBox.Show("The same version is already installed", "Portabel Brave Updater", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
             }
         }
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -828,7 +922,6 @@ namespace Brave_Updater
                 Dock = DockStyle.None,
                 Location = new Point(2, 10),
                 Size = new Size(groupBoxupdate.Width - 4, 20),
-                Text = "Eine neue Version ist verfügbar"
             };
             infoLabel.Font = new Font(infoLabel.Font.Name, 8.75F);
             Label downLabel = new Label
@@ -836,18 +929,15 @@ namespace Brave_Updater
                 TextAlign = ContentAlignment.MiddleRight,
                 AutoSize = false,
                 Size = new Size(100, 23),
-                Text = "Jetzt Updaten"
             };
             Button laterButton = new Button
             {
-                Text = "Nein",
                 Size = new Size(40, 23),
                 BackColor = Color.FromArgb(224, 224, 224)
             };
             Button updateButton = new Button
             {
                 Location = new Point(groupBoxupdate.Width - Width - 10, 60),
-                Text = "Ja",
                 Size = new Size(40, 23),
                 BackColor = Color.FromArgb(224, 224, 224)
             };
@@ -861,12 +951,26 @@ namespace Brave_Updater
             groupBoxupdate.Controls.Add(versionLabel);
             updateButton.Click += new EventHandler(UpdateButton_Click);
             laterButton.Click += new EventHandler(LaterButton_Click);
-            if (culture1.Name != "de-DE")
+            switch (culture1.TwoLetterISOLanguageName)
             {
-                infoLabel.Text = "A new version is available";
-                laterButton.Text = "No";
-                updateButton.Text = "Yes";
-                downLabel.Text = "Update now";
+                case "ru":
+                    infoLabel.Text = "Доступна новая версия";
+                    laterButton.Text = "нет";
+                    updateButton.Text = "Да";
+                    downLabel.Text = "ОБНОВИТЬ";
+                    break;
+                case "de":
+                    infoLabel.Text = "Eine neue Version ist verfügbar";
+                    laterButton.Text = "Nein";
+                    updateButton.Text = "Ja";
+                    downLabel.Text = "Jetzt Updaten";
+                    break;
+                default:
+                    infoLabel.Text = "A new version is available";
+                    laterButton.Text = "No";
+                    updateButton.Text = "Yes";
+                    downLabel.Text = "Update now";
+                    break;
             }
             void LaterButton_Click(object sender, EventArgs e)
             {
@@ -882,9 +986,9 @@ namespace Brave_Updater
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
                     var version = reader.ReadToEnd();
-                    versionLabel.Text = version;
                     FileVersionInfo testm = FileVersionInfo.GetVersionInfo(applicationPath + "\\Portable Brave Updater.exe");
-                    if (Convert.ToDecimal(version) > Convert.ToDecimal(testm.FileVersion))
+                    versionLabel.Text = testm.FileVersion + "  >>> "+ version;
+                    if (Convert.ToInt32(version.Replace(".", "")) > Convert.ToInt32(testm.FileVersion.Replace(".", "")))
                     {
                         Controls.Add(groupBoxupdate);
                         groupBox1.Enabled = false;
@@ -925,6 +1029,59 @@ namespace Brave_Updater
                     process.Start();
                     Close();
                 }
+            }
+        }
+        private void CheckLauncher()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            try
+            {
+                var request = (WebRequest)HttpWebRequest.Create("https://github.com/UndertakerBen/PorBraveUpd/raw/master/Launcher/Version.txt");
+                var response = request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    var version = reader.ReadToEnd();
+                    FileVersionInfo testm = FileVersionInfo.GetVersionInfo(applicationPath + "\\Bin\\Launcher\\Chrome Launcher.exe");
+                    if (Convert.ToInt32(version.Replace(".", "")) > Convert.ToInt32(testm.FileVersion.Replace(".", "")))
+                    {
+                        reader.Close();
+                        try
+                        {
+                            using (WebClient myWebClient2 = new WebClient())
+                            {
+                                myWebClient2.DownloadFile("https://github.com/UndertakerBen/PorBraveUpd/raw/master/Launcher/Launcher.7z", @"Launcher.7z");
+                            }
+                            string arguments = " x " + @"Launcher.7z" + " -o" + @"Bin\\Launcher" + " -y";
+                            Process process = new Process();
+                            process.StartInfo.FileName = @"Bin\7zr.exe";
+                            process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                            process.StartInfo.Arguments = arguments;
+                            process.Start();
+                            process.WaitForExit();
+                            File.Delete(@"Launcher.7z");
+                            foreach (string launcher in instDir)
+                            {
+                                if (File.Exists(launcher + " Launcher.exe"))
+                                {
+                                    FileVersionInfo binLauncher = FileVersionInfo.GetVersionInfo(applicationPath + "\\Bin\\Launcher\\" + launcher + " Launcher.exe");
+                                    FileVersionInfo istLauncher = FileVersionInfo.GetVersionInfo(applicationPath + "\\" + launcher + " Launcher.exe");
+                                    if (Convert.ToDecimal(binLauncher.FileVersion) > Convert.ToDecimal(istLauncher.FileVersion))
+                                    {
+                                        File.Copy(@"bin\\Launcher\\" + launcher + " Launcher.exe", launcher + " Launcher.exe", true);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
     }
