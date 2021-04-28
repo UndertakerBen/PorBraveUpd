@@ -6,6 +6,7 @@ namespace Brave_Dev_x64_Launcher
 {
     public partial class Form1 : Form 
     {
+        private readonly string applicationPath = Application.StartupPath;
         public Form1()
         {
             CultureInfo culture = CultureInfo.CurrentUICulture;
@@ -33,17 +34,17 @@ namespace Brave_Dev_x64_Launcher
         {
             if (radioButton1.Checked)
             {
-                System.IO.File.WriteAllText(@"Brave Dev x64\Profile.txt", "--user-data-dir=\"profile\"");
+                System.IO.File.WriteAllText(applicationPath + "\\Brave Dev x64\\Profile.txt", "--user-data-dir=\"profile\"");
                 this.Close();
             }
             if (radioButton2.Checked)
             {
-                System.IO.File.WriteAllText(@"Brave Dev x64\Profile.txt", "--user-data-dir=\"Brave Dev x64\\profile\"");
+                System.IO.File.WriteAllText(applicationPath + "\\Brave Dev x64\\Profile.txt", "--user-data-dir=\"Brave Dev x64\\profile\"");
                 this.Close();
             }
             if (radioButton3.Checked)
             {
-                System.IO.File.WriteAllText(@"Brave Dev x64\Profile.txt", "");
+                System.IO.File.WriteAllText(applicationPath + "\\Brave Dev x64\\Profile.txt", "");
                 this.Close();
             }
         }
