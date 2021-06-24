@@ -37,10 +37,12 @@ namespace Brave_Updater
             {
                 for (int i = 0; i <= 3; i++)
                 {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     Uri uri = new Uri("https://updates.bravesoftware.com/service/update2");
                     ServicePointManager.FindServicePoint(uri).ConnectionLimit = 1;
-                    WebRequest request = WebRequest.Create(uri);
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
                     request.Method = "POST";
+                    request.UserAgent = "Google Update/1.3.101.0;winhttp";
                     request.ContentType = "application/x-www-form-urlencoded";
                     byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[i] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[i] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
                     request.ContentLength = byteArray.Length;
@@ -363,8 +365,10 @@ namespace Brave_Updater
             List<Task> list = new List<Task>();
             try
             {
-                WebRequest request = WebRequest.Create("https://updates.bravesoftware.com/service/update2");
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://updates.bravesoftware.com/service/update2");
                 request.Method = "POST";
+                request.UserAgent = "Google Update/1.3.101.0;winhttp;cup-ecdsa";
                 request.ContentType = "application/x-www-form-urlencoded";
                 byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[a] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[d - 1] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
                 request.ContentLength = byteArray.Length;
