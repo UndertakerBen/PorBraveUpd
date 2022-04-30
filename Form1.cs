@@ -14,17 +14,17 @@ namespace Brave_Updater
 {
     public partial class Form1 : Form
     {
-        public static string[] ring = new string[4] { "Nightly", "Dev", "Beta", "Stable" };
-        public static string[] arappid = new string[4] { "C6CB981E-DB30-4876-8639-109F8933582C", "CB2150F2-595F-4633-891A-E39720CE0531", "103BD053-949B-43A8-9120-2E424887DE11", "AFE6A462-C574-4B8A-AF43-4CC60DF4563B" };
+        public static string[] ring = new string[8] { "Nightly", "Dev", "Beta", "Stable", "Nightly", "Dev", "Beta", "Stable" };
+        public static string[] arappid = new string[8] { "C6CB981E-DB30-4876-8639-109F8933582C", "CB2150F2-595F-4633-891A-E39720CE0531", "103BD053-949B-43A8-9120-2E424887DE11", "AFE6A462-C574-4B8A-AF43-4CC60DF4563B", "C6CB981E-DB30-4876-8639-109F8933582C", "CB2150F2-595F-4633-891A-E39720CE0531", "103BD053-949B-43A8-9120-2E424887DE11", "AFE6A462-C574-4B8A-AF43-4CC60DF4563B" };
         public static string[] arapVersion = new string[8] { "x86-ni", "x86-dev", "x86-be", "x86-rel", "x64-ni", "x64-dev", "x64-be", "x64-rel" };
         public static string[] ring2 = new string[8] { "Nightly", "Developer", "Beta", "Stable", "Nightly", "Developer", "Beta", "Stable" };
         public static string[] buildversion = new string[8];
-        public static string[] newVersion = new string[4];
+        public static string[] newVersion = new string[8];
         public static string[] architektur = new string[2] { "X86", "X64" };
         public static string[] architektur2 = new string[2] { "x86", "x64" };
         public static string[] instDir = new string[9] { "Brave Nightly x86", "Brave Dev x86", "Brave Beta x86", "Brave Stable x86", "Brave Nightly x64", "Brave Dev x64", "Brave Beta x64", "Brave Stable x64", "Brave" };
         public static string[] entpDir = new string[9] { "Nightly86", "Dev86", "Beta86", "Stable86", "Nightly64", "Dev64", "Beta64", "Stable64", "Single" };
-        public static string[] icon = new string[4] { "4", "8", "9", "0" };
+        public static string[] icon = new string[8] { "4", "8", "9", "0", "4", "8", "9", "0" };
         WebClient webClient;
         readonly string deskDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         readonly string applicationPath = Application.StartupPath;
@@ -35,21 +35,22 @@ namespace Brave_Updater
             InitializeComponent();
             try
             {
-                for (int i = 0; i <= 3; i++)
+                for (int i = 0; i <= 7; i++)
                 {
+                    ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                    Uri uri = new Uri("https://updates.bravesoftware.com/service/update2");
-                    ServicePointManager.FindServicePoint(uri).ConnectionLimit = 1;
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-                    request.Method = "POST";
-                    request.UserAgent = "Google Update/1.3.101.0;winhttp";
-                    request.ContentType = "application/x-www-form-urlencoded";
+                    Uri uri1 = new Uri("https://updates.bravesoftware.com/service/update2");
+                    ServicePointManager.FindServicePoint(uri1).ConnectionLimit = 1;
+                    HttpWebRequest request1 = (HttpWebRequest)WebRequest.Create(uri1);
+                    request1.Method = "POST";
+                    request1.UserAgent = "Google Update/1.3.101.0;winhttp";
+                    request1.ContentType = "application/x-www-form-urlencoded";
                     byte[] byteArray = Encoding.UTF8.GetBytes("<?xml version =\"1.0\" encoding=\"UTF-8\"?><request protocol=\"3.0\" version=\"1.3.99.0\" shell_version=\"1.3.99.0\" ismachine=\"1\" sessionid=\"{11111111-1111-1111-1111-111111111111}\" installsource=\"taggedmi\" testsource=\"auto\" requestid=\"{11111111-1111-1111-1111-111111111111}\" dedup=\"cr\"><os platform=\"win\" version=\"\" sp=\"\" arch=\"x86\"/><app appid=\"{" + arappid[i] + "}\" version=\"\" nextversion=\"\" ap=\"" + arapVersion[i] + "\" lang=\"en\" brand=\"\" client=\"\" installage=\"-1\" installdate=\"-1\"><updatecheck/></app></request>");
-                    request.ContentLength = byteArray.Length;
-                    Stream dataStream = request.GetRequestStream();
+                    request1.ContentLength = byteArray.Length;
+                    Stream dataStream = request1.GetRequestStream();
                     dataStream.Write(byteArray, 0, byteArray.Length);
-                    WebResponse response = request.GetResponse();
-                    using (dataStream = response.GetResponseStream())
+                    WebResponse response1 = request1.GetResponse();
+                    using (dataStream = response1.GetResponseStream())
                     {
                         StreamReader reader = new StreamReader(dataStream);
                         string responseFromServer = reader.ReadToEnd();
@@ -57,7 +58,6 @@ namespace Brave_Updater
                         string[] version = URL[1].Split(new char[] { '.' });
                         newVersion[i] = version[1] + "." + version[2] + "." + version[3];
                         buildversion[i] = URL[1];
-                        buildversion[i + 4] = URL[1];
                         dataStream.Close();
                     }
                 }
@@ -65,6 +65,10 @@ namespace Brave_Updater
                 label6.Text = newVersion[1];
                 label7.Text = newVersion[2];
                 label8.Text = newVersion[3];
+                label10.Text = newVersion[4];
+                label11.Text = newVersion[5];
+                label12.Text = newVersion[6];
+                label13.Text = newVersion[7];
                 button9.Enabled = false;
                 checkBox1.Enabled = false;
                 checkBox2.Enabled = false;
@@ -241,44 +245,44 @@ namespace Brave_Updater
         {
             if (checkBox3.Checked)
             {
-                await NewMethod(0, 4, 1, 5);
+                await NewMethod(4, 4, 1, 5);
             }
             else if (!checkBox3.Checked)
             {
-                await NewMethod1(0, 1, 5);
+                await NewMethod1(4, 1, 5);
             }
         }
         private async void Button6_Click(object sender, EventArgs e)
         {
             if (checkBox3.Checked)
             {
-                await NewMethod(1, 5, 1, 6);
+                await NewMethod(5, 5, 1, 6);
             }
             else if (!checkBox3.Checked)
             {
-                await NewMethod1(1, 1, 6);
+                await NewMethod1(5, 1, 6);
             }
         }
         private async void Button7_Click(object sender, EventArgs e)
         {
             if (checkBox3.Checked)
             {
-                await NewMethod(2, 6, 1, 7);
+                await NewMethod(6, 6, 1, 7);
             }
             else if (!checkBox3.Checked)
             {
-                await NewMethod1(2, 1, 7);
+                await NewMethod1(6, 1, 7);
             }
         }
         private async void Button8_Click(object sender, EventArgs e)
         {
             if (checkBox3.Checked)
             {
-                await NewMethod(3, 7, 1, 8);
+                await NewMethod(7, 7, 1, 8);
             }
             else if (!checkBox3.Checked)
             {
-                await NewMethod1(3, 1, 8);
+                await NewMethod1(7, 1, 8);
             }
         }
         private async void Button9_Click(object sender, EventArgs e)
@@ -308,17 +312,17 @@ namespace Brave_Updater
                 {
                     if (checkBox2.Checked)
                     {
-                        await DownloadFile(0, 4, 1, 5);
-                        await DownloadFile(1, 5, 1, 6);
-                        await DownloadFile(2, 6, 1, 7);
-                        await DownloadFile(3, 7, 1, 8);
+                        await DownloadFile(4, 4, 1, 5);
+                        await DownloadFile(5, 5, 1, 6);
+                        await DownloadFile(6, 6, 1, 7);
+                        await DownloadFile(7, 7, 1, 8);
                         checkBox2.Enabled = false;
                     }
                 }
-                await NewMethod2(0, 4, 1, 5);
-                await NewMethod2(1, 5, 1, 6);
-                await NewMethod2(2, 6, 1, 7);
-                await NewMethod2(3, 7, 1, 8);
+                await NewMethod2(4, 4, 1, 5);
+                await NewMethod2(5, 5, 1, 6);
+                await NewMethod2(6, 6, 1, 7);
+                await NewMethod2(7, 7, 1, 8);
             }
         }
         public async Task DownloadFile(int a, int b, int c, int d)
@@ -822,9 +826,9 @@ namespace Brave_Updater
         {
             Control[] buttons = Controls.Find("button" + a, true);
             Control[] buttons2 = Controls.Find("button" + b, true);
-            if (instVersion[0] == buildversion[c])
+            if (instVersion[2] == "x86")
             {
-                if (instVersion[2] == "x86")
+                if (instVersion[0] == buildversion[c])
                 {
                     if (buttons.Length > 0)
                     {
@@ -832,18 +836,7 @@ namespace Brave_Updater
                         button.BackColor = Color.Green;
                     }
                 }
-                else if (instVersion[2] == "x64")
-                {
-                    if (buttons2.Length > 0)
-                    {
-                        Button button = (Button)buttons2[0];
-                        button.BackColor = Color.Green;
-                    }
-                }
-            }
-            else if (instVersion[0] != buildversion[c])
-            {
-                if (instVersion[2] == "x86")
+                else if (instVersion[0] != buildversion[c])
                 {
                     if (buttons.Length > 0)
                     {
@@ -851,7 +844,18 @@ namespace Brave_Updater
                         button.BackColor = Color.Red;
                     }
                 }
-                else if (instVersion[2] == "x64")
+            }
+            else if (instVersion[2] == "x64")
+            {
+                if (instVersion[0] == buildversion[c + 4])
+                {
+                    if (buttons2.Length > 0)
+                    {
+                        Button button = (Button)buttons2[0];
+                        button.BackColor = Color.Green;
+                    }
+                }
+                else if (instVersion[0] != buildversion[c + 4])
                 {
                     if (buttons2.Length > 0)
                     {
